@@ -21,6 +21,25 @@ attr_reader :id, :name
      @id = result[0]['id'].to_i
    end
 
+   def self.all()
+     sql = "SELECT * FROM artist"
+     results = SqlRunner.run(sql)
+     artist_array = results.map{|result| Artist.new(result)}
+     return artist_array
+   end
+
+   def albums()
+     sql = "SELECT * FROM album WHERE artist_id =$1 "
+     values = [@id]
+     results = SqlRunner.run(sql,values)
+     albums = results.map{|result| Album.new(result)}
+     return albums
+   end
+
+   
+
+
+
 
 
 end
