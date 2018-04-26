@@ -52,4 +52,12 @@ attr_accessor :title, :genre
 
   end
 
+  def self.find(id)
+    sql = "SELECT * FROM album WHERE id =$1 "
+    values = [id]
+    results = SqlRunner.run(sql,values)
+    albums = results.map{|result| Album.new(result)}
+    return albums
+  end
+
 end
